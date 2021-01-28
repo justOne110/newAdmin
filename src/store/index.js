@@ -5,8 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    bread:[]
   },
   mutations: {
+    setBread(state,date){
+      state.bread = date
+    }
   },
   actions: {
   },
