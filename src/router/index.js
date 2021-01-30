@@ -20,6 +20,7 @@ const routes = [
       keepAlive: false,
     },
     children:[
+      // home
       {
         path: '/index',
         name: 'index',
@@ -31,6 +32,7 @@ const routes = [
           ]
         }
       },
+      // 商品管理
       {
         path: '/good',
         name: 'good',
@@ -42,6 +44,31 @@ const routes = [
           ]
         }
       },
+      // 商品详情
+      {
+        path: '/good/detail',
+        name: 'goodDetail',
+        component: () => import('views/detail.vue'),
+        meta:{
+          keepAlive:false,
+          bread:[
+            {name:"商品管理"}
+          ]
+        }
+      },
+      // 商品编辑
+      {
+        path: '/good/complice',
+        name: 'goodComplice',
+        component: () => import('views/complice.vue'),
+        meta:{
+          keepAlive:false,
+          bread:[
+            {name:"商品管理"}
+          ]
+        }
+      },
+      // 品类管理
       {
         path: '/category',
         name: 'category',
@@ -53,6 +80,7 @@ const routes = [
           ]
         }
       },
+      // 订单管理
       {
         path: '/order',
         name: 'order',

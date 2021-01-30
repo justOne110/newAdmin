@@ -35,9 +35,63 @@ function goodList(data) {
         hideloading: false // 隐藏 loading 组件
     })
 }
+
+// 查询
+function search(data){
+    return Server({
+        url:api.search,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
+
+// 上架下架
+function soldOut(data){
+    return Server({
+        url:api.soldOut,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
+
+// 详情
+function goodDetail(data){
+    return Server({
+        url:api.goodDetail,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
+
+// 一级分类
+function category(data){
+    return Server({
+        url:api.category,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
+// 二级分类
+function classfiy(data){
+    return Server({
+        url:api.category,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
 // 导出封装好的请求函数
 export default {
     login,
     loginOut,
-    goodList
+    goodList,
+    search,
+    soldOut,
+    goodDetail,
+    category,
+    classfiy
 }

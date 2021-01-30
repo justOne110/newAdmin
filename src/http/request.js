@@ -1,16 +1,16 @@
 //1. 导入axios
 import axios from 'axios'
 // 根据环境不同引入不同baseApi地址
-import { baseApi } from '@/config'
+// import { baseApi } from '@/config'
 // 导入loading
 import { Loading } from 'element-ui';
 
 let loadingInstance; // 创建loading变量
 // 2. 创建axios实例
 const Server = axios.create({
-    baseURL: baseApi, // 基础url地址
+    baseURL: "/api", // 基础url地址
     timeout: 3000, // 请求超时时间
-    // withCredentials: false,
+    withCredentials: true,
 })
 
 //3. 请求拦截器配置
