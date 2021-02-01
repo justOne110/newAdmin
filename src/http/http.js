@@ -84,6 +84,15 @@ function classfiy(data){
         hideloading:false
     })
 }
+// 二级分类
+function classiy(data){
+    return Server({
+        url:api.category,
+        method:"get",
+        params:data,
+        hideloading:false
+    })
+}
 // 导出封装好的请求函数
 export default {
     login,
@@ -93,5 +102,7 @@ export default {
     soldOut,
     goodDetail,
     category,
-    classfiy
+    classfiy,
+function classiy(data){
+
 }

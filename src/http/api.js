@@ -6,6 +6,8 @@ module.exports = {
     soldOut:"manage/product/set_sale_status.do",// 上下架
     goodDetail:"manage/product/detail.do", // 详情
     category:"manage/category/get_category.do",//一级分类
+    catgory:"manage/category/get_category.do",//一级分类
+
 
   }
   
