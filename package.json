@@ -8,11 +8,15 @@
     "stage": "vue-cli-service build --mode staging"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^25.0.0",
+    "@ckeditor/ckeditor5-vue": "^2.0.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
     "mavon-editor": "^2.9.1",
+    "quill": "^1.3.7",
     "vue": "^2.6.11",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },

@@ -12,12 +12,15 @@ Vue.prototype.$axios = axios
 import '../src/assets/css/index.scss'
 
 // 富文本编辑器
-// import VueQuillEditor from 'vue-quill-editor'
-// import 'quill/dist/quill.core.css'
-// import 'quill/dist/quill.snow.css'
-// import 'quill/dist/quill.bubble.css'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
  
-// Vue.use(VueQuillEditor)
+Vue.use(VueQuillEditor)
+
+
+
 
 // 全局路由守卫
 router.beforeEach((to, from, next) => {

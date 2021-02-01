@@ -64,7 +64,21 @@ const routes = [
         meta:{
           keepAlive:false,
           bread:[
-            {name:"商品管理"}
+            {name:"商品管理"},
+            {name:"修改商品"}
+          ]
+        }
+      },
+      // 添加商品
+      {
+        path: '/good/add',
+        name: 'goodAdd',
+        component: () => import('views/addgoods.vue'),
+        meta:{
+          keepAlive:false,
+          bread:[
+            {name:"商品管理"},
+            {name:"添加商品"}
           ]
         }
       },

@@ -19,7 +19,7 @@
         <el-button @click="search">查询</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary">添加商品</el-button>
+        <el-button type="primary" @click="add">添加商品</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" border style="width: 100%">
@@ -164,6 +164,10 @@ export default {
     // 进入编辑
     goComplice(id){
         this.$router.push(`/good/complice?id=${id}`)
+    },
+    // 添加商品
+    add(){
+        this.$router.push('/good/add')
     }
   },
   computed: {},

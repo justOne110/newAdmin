@@ -42,12 +42,12 @@
           </el-menu>
         </el-aside>
         <el-main>
-          <el-breadcrumb>
+          <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item
               v-for="(item, index) in this.$store.state.bread"
               :key="index"
               >
-              <p>{{ item.name }}</p>
+            {{ item.name }}
               </el-breadcrumb-item
             >
           </el-breadcrumb>
@@ -126,6 +126,10 @@ export default {
 
           border-bottom: 1px solid rgb(141, 138, 138);
          margin-bottom: 10px;
+         .el-breadcrumb-item{
+           width: 400px;
+         }
+       
         }
       }
     }

@@ -4,21 +4,26 @@
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         商品名称
       </p>
-      <p>{{ list.name }}</p>
+      <p>
+        <el-input type="text" :value="list.name"></el-input>
+
+      </p>
     </div>
     <div>
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         商品描述
       </p>
-      <p>{{ list.subtitle }}</p>
+      <p>
+        <el-input type="text" :value="list.subtitle"></el-input>
+      </p>
     </div>
-    <div>
+    <!-- <div>
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         当前状态
       </p>
       <p v-if="list.status == 1">在售</p>
       <p v-else>已下架</p>
-    </div>
+    </div> -->
     <div>
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         所属分类
@@ -30,7 +35,6 @@
             :key="item.id"
             :label="item.name"
             :value="item.id"
-            disabled
           >
           </el-option>
         </el-select>
@@ -40,7 +44,6 @@
             :key="item.id"
             :label="item.name"
             :value="item.id"
-            disabled
           >
           </el-option>
         </el-select>
@@ -51,7 +54,7 @@
         商品价格
       </p>
       <p>
-        <el-input v-model="list.price" readonly="readonly">
+        <el-input v-model="list.price" >
           <template slot="append">元</template>
         </el-input>
       </p>
@@ -61,7 +64,7 @@
         商品库存
       </p>
       <p>
-        <el-input v-model="list.stock" readonly="readonly">
+        <el-input v-model="list.stock" >
           <template slot="append">件</template>
         </el-input>
       </p>
@@ -82,7 +85,21 @@
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         商品详情
       </p>
-      <!-- <p v-html="list.detail"></p> -->
+  
+
+      <!-- 富文本 -->
+      <div class="edit_container">
+        <quill-editor
+          v-model="content"
+          ref="myQuillEditor"
+          :options="editorOption"
+          @blur="onEditorBlur($event)"
+          @focus="onEditorFocus($event)"
+          @change="onEditorChange($event)"
+        >
+        </quill-editor>
+        <el-button type="primary" v-on:click="saveHtml">保存</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -97,6 +114,8 @@ export default {
       categoryVal: "", // 一级分类的双向绑定
       options2: [], // 二级分类
       classfiyVal: "", // 二级分类的双向绑定
+      content: `<h2>文本编辑</h2>`,
+      editorOption: {},
     };
   },
   created() {
@@ -135,8 +154,24 @@ export default {
       // console.log(res)
       this.options2 = res.data;
     },
+
+    // 富文本编辑器
+    onEditorReady(editor) {
+      // 准备编辑器
+    },
+    onEditorBlur() {}, // 失去焦点事件
+    onEditorFocus() {}, // 获得焦点事件
+    onEditorChange() {}, // 内容改变事件
+    saveHtml: function (event) {
+      // alert(this.content);
+      this.$message.success("提交成功！");
+    },
   },
-  computed: {},
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
+    },
+  },
 };
 </script>
 
@@ -152,5 +187,22 @@ export default {
     display: flex;
     align-items: center;
   }
+}
+
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+.quill-editor {
+  margin-top: 140px;
+  width: 100%;
+  // min-height: 500px;
+}
+.ql-container {
+  min-height: 500px;
 }
 </style>
