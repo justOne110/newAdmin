@@ -30,7 +30,6 @@
             :key="item.id"
             :label="item.name"
             :value="item.id"
-            disabled
           >
           {{item.name}}
           </el-option>
@@ -41,7 +40,6 @@
             :key="item.id"
             :label="item.name"
             :value="item.id"
-            disabled
           >
           </el-option>
         </el-select>

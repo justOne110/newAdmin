@@ -94,6 +94,17 @@ const routes = [
           ]
         }
       },
+      {
+        path: '/category/:id',
+        name: 'category',
+        component: () => import('views/subclass.vue'),
+        meta:{
+          keepAlive:false,
+          bread:[
+            {name:"品类管理"}
+          ]
+        }
+      },
       // 订单管理
       {
         path: '/order',

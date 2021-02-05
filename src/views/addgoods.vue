@@ -1,11 +1,13 @@
 <template>
   <div class="wrap">
     <div>
+        <!-- {{categoryVal}} -->
+        {{classfiyVal}}
       <p style="font-size: 18px; font-weight: bold; margin-right: 30px">
         商品名称
       </p>
       <p>
-        <el-input type="text"></el-input>
+        <el-input type="text" v-model="goodName"></el-input>
       </p>
     </div>
     <div>
@@ -13,7 +15,7 @@
         商品描述
       </p>
       <p>
-        <el-input type="text"></el-input>
+        <el-input type="text" v-model="goodMs"></el-input>
       </p>
     </div>
     <!-- <div>
@@ -57,7 +59,7 @@
         商品价格
       </p>
       <p>
-        <el-input>
+        <el-input v-model="price">
           <template slot="append">元</template>
         </el-input>
       </p>
@@ -67,7 +69,7 @@
         商品库存
       </p>
       <p>
-        <el-input>
+        <el-input v-model="stock">
           <template slot="append">件</template>
         </el-input>
       </p>
@@ -79,15 +81,13 @@
       <p>
         <el-upload
           class="upload-demo"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :on-preview="handlePreview"
-          :on-remove="handleRemove"
-          :file-list="fileList"
+          action="http://admintest.happymmall.com/manage/product/upload.do"
           list-type="picture"
+          :http-request="imgupload"
         >
           <el-button size="small" type="primary">点击上传</el-button>
           <div slot="tip" class="el-upload__tip">
-            只能上传jpg/png文件
+            只能上传jpg/png文件，且不超过500kb
           </div>
         </el-upload>
       </p>
@@ -98,7 +98,7 @@
       </p>
 
       <!-- 富文本 -->
-      <div class="edit_container">
+      <p class="edit_container">
         <quill-editor
           v-model="content"
           ref="myQuillEditor"
@@ -108,9 +108,11 @@
           @change="onEditorChange($event)"
         >
         </quill-editor>
-        <el-button type="primary" v-on:click="saveHtml">保存</el-button>
-      </div>
+        <!-- <el-button type="primary" v-on:click="saveHtml">保存</el-button> -->
+      </p>
     </div>
+
+    <el-button type="primary" @click="add">提交</el-button>
   </div>
 </template>
 
@@ -124,7 +126,12 @@ export default {
       categoryVal: "", // 一级分类的双向绑定
       options2: [], // 二级分类
       classfiyVal: "", // 二级分类的双向绑定
-      content: `<h2>文本编辑</h2>`,
+      imgsrc:"",// 图片路径
+      goodName:"",// 商品名称
+      goodMs:"",// 商品描述
+      price:"",// 商品价格
+      stock:"",// 商品库存
+      content: `<p>文本编辑</p>`,
       editorOption: {},
     };
   },
@@ -160,18 +167,49 @@ export default {
       // console.log(res)
       this.options2 = res.data;
     },
+    // 图片上传
+   async imgupload(e) {
+      console.log(e);
+      let content = e.file;
+      // 通过FormData构造函数创建一个空对象
+      let data = new FormData();
+      // 可以通过append()方法来追加数据
+      data.append("upload_file", content);
 
-    // 富文本编辑器
+      let {data:res} = await this.$axios.imgUpload(data)
+      console.log(res)
+
+      this.imgsrc = res.data.url
+    },
+
+    // 提交
+    async add(){
+
+        let data = {
+            categoryId:this.classfiyVal,
+            name:this.goodName,
+            subtitle:this.goodMs,
+            subImages:this.imgsrc,
+            detail:this.content,
+            price:this.price,
+            stock:this.stock,
+            status:1
+        }
+        let {data:res} = await this.$axios.addGood(data)
+        console.log(res)
+        
+    },
+// 富文本编辑器
     onEditorReady(editor) {
       // 准备编辑器
     },
     onEditorBlur() {}, // 失去焦点事件
     onEditorFocus() {}, // 获得焦点事件
     onEditorChange() {}, // 内容改变事件
-    saveHtml: function (event) {
-      // alert(this.content);
-      this.$message.success("提交成功！");
-    },
+    // saveHtml: function (event) {
+    //   // alert(this.content);
+    //   this.$message.success("提交成功！");
+    // },
   },
   computed: {
     editor() {
@@ -189,7 +227,7 @@ export default {
   box-sizing: border-box;
   padding: 18px 40px 18px 200px;
   & > div {
-    height: 50px;
+    min-height: 50px;
     display: flex;
     align-items: center;
   }
@@ -204,11 +242,11 @@ export default {
   margin-top: 60px;
 }
 .quill-editor {
-  margin-top: 140px;
+  margin-top: 10px;
   width: 100%;
   // min-height: 500px;
 }
 .ql-container {
-  min-height: 500px;
+  //   min-height: 500px;
 }
 </style>

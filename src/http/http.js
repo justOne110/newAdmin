@@ -67,7 +67,7 @@ function goodDetail(data){
 }
 
 // 一级分类
-function category(data){
+function category(data={categoryId:0}){
     return Server({
         url:api.category,
         method:"get",
@@ -84,13 +84,29 @@ function classfiy(data){
         hideloading:false
     })
 }
-// 二级分类
-function classiy(data){
+// 图片上传
+function imgUpload(data){
     return Server({
-        url:api.category,
+        url:api.upload,
+        method:"post",
+        data:data
+    })
+}
+
+// 添加商品
+function addGood(data){
+    return Server({
+        url:api.addgood,
         method:"get",
-        params:data,
-        hideloading:false
+        params:data
+    })
+}
+// 修改名称、
+function rename (data){
+    return Server({
+        url:api.rename,
+        method:"get",
+        params:data
     })
 }
 // 导出封装好的请求函数
@@ -103,6 +119,8 @@ export default {
     goodDetail,
     category,
     classfiy,
-function classiy(data){
+    imgUpload,
+    addGood,
+    rename
 
 }
